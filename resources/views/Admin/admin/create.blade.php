@@ -40,7 +40,7 @@
                 <div class="row cl">
                     <label class="form-label col-xs-2 col-sm-1"><span class="c-red">*</span>确认密码：</label>
                     <div class="formControls col-xs-8 col-sm-9">
-                        <input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+                        <input type="password" class="input-text" autocomplete="off" placeholder="确认新密码" id="password2" name="password2">
                     </div>
                 </div>
                 <div class="row cl">
@@ -72,12 +72,11 @@
                     <label class="form-label col-xs-2 col-sm-1"><span class="c-red">*</span>角色：</label>
                     <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
 				<select class="select" name="role_id" size="1">
-					<option value="1">超级管理员</option>
-					<option value="2">总编</option>
-					<option value="3">栏目主辑</option>
-					<option value="4">栏目编辑</option>
+                    @foreach($roles as $key=>$val)
+                        <option value="{{$val->id}}">{{$val->name}}</option>
+                    @endforeach
 				</select>
-				</span> </div>
+				</span></div>
                 </div>
                 <div class="row cl">
                     <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-1">
@@ -102,7 +101,7 @@
 <script type="text/javascript" src="{{asset('statics/lib/jquery.validation/1.14.0/validate-methods.js')}}"></script>
 <script type="text/javascript" src="{{asset('statics/lib/jquery.validation/1.14.0/messages_zh.js')}}"></script>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         $('.skin-minimal input').iCheck({
             checkboxClass: 'icheckbox-blue',
             radioClass: 'iradio-blue',
@@ -110,35 +109,35 @@
         });
 
         $("#form-admin-add").validate({
-            rules:{
-                username:{
-                    required:true,
-                    minlength:2,
-                    maxlength:16
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 16
                 },
-                password:{
-                    required:true,
-                    minlength:6,
-                    maxlength:16
+                password: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 16
                 },
-                password2:{
-                    required:true,
+                password2: {
+                    required: true,
                     equalTo: "#password"
                 },
-                status:{
-                    required:true,
+                status: {
+                    required: true,
                 },
-                email:{
-                    required:false,
-                    email:true,
+                email: {
+                    required: false,
+                    email: true,
                 },
-                role_id:{
-                    required:true,
+                role_id: {
+                    required: true,
                 },
             },
-            onkeyup:false,
-            focusCleanup:true,
-            success:"valid",
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
 
         });
     });

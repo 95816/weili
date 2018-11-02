@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Admin as AdminModel;
+use App\Models\Admin\Role;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -56,7 +57,7 @@ class AdminController extends Controller
             $search = $request->input('Search');
             $start_time = strtotime($search['start_time']);
             $end_time = strtotime($search['end_time']) == '' ? time() : strtotime($search['end_time']);
-            $keyword = empty($search['keyword'])?Input::get('username'):$search['keyword'];
+            $keyword = empty($search['keyword']) ? Input::get('username') : $search['keyword'];
             if (!$keyword) {
                 $admin_lists = AdminModel::where('create_time', '>', $start_time)
                     ->where('create_time', '<', $end_time)
@@ -68,7 +69,11 @@ class AdminController extends Controller
                     ->paginate(2);
             }
         } else {
-            $admin_lists = AdminModel::paginate(3);
+            $admin_lists = AdminModel::paginate(10);
+        }
+        foreach ($admin_lists as $key => &$val) {
+            $role_data = Role::find($val->role_id);
+            $val['role_id'] = $role_data->name;
         }
         return view('Admin.admin.lists', ['list' => $admin_lists, 'keyword' => empty($keyword) ? '' : $keyword]);
     }
@@ -91,7 +96,8 @@ class AdminController extends Controller
                 return view('jump', ['jump' => $jump]);
             }
         } else {
-            return view('Admin.admin.create');
+            $roles = Role::where('status', '1')->get();
+            return view('Admin.admin.create', ['roles' => $roles]);
         }
     }
 
@@ -121,7 +127,8 @@ class AdminController extends Controller
                 return redirect()->back()->with('admin_edit_error', '修改管理员 ' . $admin->username . ' 失败!')->withInput();
             }
         } else {
-            return view('Admin.admin.edit', ['adminInfo' => $admin]);
+            $roles = Role::where('status', '1')->get();
+            return view('Admin.admin.edit', ['adminInfo' => $admin, 'roles' => $roles]);
         }
     }
 
@@ -166,5 +173,11 @@ class AdminController extends Controller
     {
         Session::flush();
         return redirect('/');
+    }
+
+    public function no_power()
+    {
+        $jump = Config::get('jump.no_power');
+        return view('jump', ['jump' => $jump]);
     }
 }

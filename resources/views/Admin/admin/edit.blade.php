@@ -80,10 +80,9 @@
                     <label class="form-label col-xs-2 col-sm-1"><span class="c-red">*</span>角色：</label>
                     <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
 				<select class="select" name="Admin[role_id]" size="1">
-					<option value="1" {{(old('Admin')['role_id']?old('Admin')['role_id']:$adminInfo->role_id) == 1 ? 'selected=selected': ''}}>超级管理员</option>
-					<option value="2" {{(old('Admin')['role_id']?old('Admin')['role_id']:$adminInfo->role_id) == 2 ? 'selected=selected': ''}}>总编</option>
-					<option value="3" {{(old('Admin')['role_id']?old('Admin')['role_id']:$adminInfo->role_id) == 3 ? 'selected=selected': ''}}>栏目主辑</option>
-					<option value="4" {{(old('Admin')['role_id']?old('Admin')['role_id']:$adminInfo->role_id) == 4 ? 'selected=selected': ''}}>栏目编辑</option>
+                    @foreach($roles as $key=>$val)
+                        <option value="{{$val->id}}" {{(old('Admin')['role_id']?old('Admin')['role_id']:$adminInfo->role_id) == $val->id ? 'selected=selected': ''}}>{{$val->name}}</option>
+                    @endforeach
 				</select>
 				</span></div>
                 </div>

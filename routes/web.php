@@ -19,7 +19,7 @@ Route::get('jump', ['uses' => 'Jump\JumpController@index']);
 Route::get('captcha/{tmp}', ['uses' => 'codeController@captcha']);
 
 //Admin routes
-Route::group(['prefix' => 'admin', 'middleware' => ['check_login']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['check_login', 'check_auth']], function () {
     Route::get('index', ['uses' => 'Admin\AdminController@index']);
     Route::any('login', ['uses' => 'Admin\AdminController@login']);
     Route::any('lists', ['uses' => 'Admin\AdminController@lists']);
@@ -41,9 +41,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['check_login']], function ()
     Route::post('task/delete', ['uses' => 'Admin\TaskController@delete']);
     Route::post('task/delete_all', ['uses' => 'Admin\TaskController@delete_all']);
     Route::post('task_status', ['uses' => 'Admin\TaskController@task_status']);
+    Route::any('task/do_lists', ['uses' => 'Admin\TaskController@do_lists']);
+
+    //权限管理路由
+    Route::any('power/show', ['uses' => 'Admin\PowerController@show']);
+    Route::any('power/add', ['uses' => 'Admin\PowerController@add']);
+    Route::any('power/power_list', ['uses' => 'Admin\PowerController@power_list']);
+    Route::any('power/edit/id/{id}', ['uses' => 'Admin\PowerController@edit'])->where(['id' => '\d+']);
+    Route::any('power/delete', ['uses' => 'Admin\PowerController@delete']);
+    //角色管理路由组
+    Route::any('role/show', ['uses' => 'Admin\RoleController@show']);
+    Route::any('role/add', ['uses' => 'Admin\RoleController@add']);
+    Route::any('role/edit/id/{id}', ['uses' => 'Admin\RoleController@edit'])->where(['id' => '\d+']);
+
 
     Route::any('user/lists', ['uses' => 'Admin\UserController@lists']);
-    Route::any('task/do_lists', ['uses' => 'Admin\TaskController@do_lists']);
 
     Route::any('invite/set', ['uses' => 'Admin\InviteController@set_invite']);
     Route::any('sign/set', ['uses' => 'Admin\SignController@set_sign']);
@@ -74,6 +86,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['check_login']], function ()
 
 
 });
+//无权限
+Route::any('no_power', ['uses' => 'Admin\AdminController@no_power']);
 
 //输入邀请码界面
 Route::any('api/enter/page', ['uses' => 'Api\InviteController@enterPage']);

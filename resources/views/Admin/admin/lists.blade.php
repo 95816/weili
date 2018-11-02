@@ -68,7 +68,7 @@
                         <td>{{$val->id}}</td>
                         <td>{{$val->username}}</td>
                         <td>{{$val->email}}</td>
-                        <td>超级管理员</td>
+                        <td>{{$val->role_id}}</td>
                         <td>{{$val->create_time}}</td>
                         <td>{{$val->login_ip}}</td>
                         <td>{{$val->login_time==''?'':date('Y-m-d H:i:s',$val->login_time)}}</td>

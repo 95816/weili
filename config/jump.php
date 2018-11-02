@@ -35,7 +35,7 @@ return [
         'code' => 0,
         'msg' => '新增管理员失败',
         'wait' => 3,
-        'url' => '/admin/add'
+        'url' => '/admin/lists'
     ],
     'admin_edit_success' => [
         'code' => 1,
@@ -48,5 +48,11 @@ return [
         'msg' => '申请成功',
         'wait' => 3,
         'url' => '/admin/app/show'
+    ],
+    'no_power' => [
+        'code' => 0,
+        'msg' => '无操作权限,请联系管理员',
+        'wait' => 1,
+        'url' => '/'
     ],
 ];

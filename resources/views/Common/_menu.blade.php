@@ -6,8 +6,8 @@
             <dd>
                 <ul>
                     <li><a href="/admin/lists" title="管理员列表">管理员列表</a></li>
-                    <li><a href="javascript:void(0)" title="角色管理">角色管理</a></li>
-                    <li><a href="javascript:void(0)" title="权限管理">权限管理</a></li>
+                    <li><a href="/admin/role/show" title="角色管理">角色管理</a></li>
+                    <li><a href="/admin/power/show" title="权限管理">权限管理</a></li>
                 </ul>
             </dd>
         </dl>
@@ -26,6 +26,7 @@
             <dd>
                 <ul>
                     <li><a href="/admin/app/show" title="APP列表">APP列表</a></li>
+                    <li><a href="/admin/category" title="APP分类">APP分类</a></li>
                 </ul>
             </dd>
         </dl>
@@ -33,7 +34,6 @@
             <dt><i class="Hui-iconfont">&#xe620;</i> 任务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="/admin/category" title="分类管理">分类管理</a></li>
                     <li><a href="/admin/task/show" title="任务管理">任务管理</a></li>
                     <li><a href="/admin/task/do_lists" title="任务记录">任务记录</a></li>
                 </ul>

@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     public function lists()
     {
-        $userAllData = User::orderBy('created_at', 'desc')->paginate(15);
+        $userAllData = User::paginate(15);
         return view('Admin.user.lists', ['user_list' => $userAllData]);
     }
 }
