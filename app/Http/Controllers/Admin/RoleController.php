@@ -57,7 +57,7 @@ class RoleController extends Controller
         $role = Role::find($id);
         if ($request->isMethod('post')) {
             $data = $request->all();
-            if (!empty($data)){
+            if (!empty($data)) {
                 $input['name'] = $data['name'];
                 $input['description'] = $data['description'];
                 $input['status'] = $data['status'];
@@ -82,6 +82,32 @@ class RoleController extends Controller
             }
 
             return view('Admin.role.edit', ['powers' => $powers, 'role' => $role, 'power_new_arr' => $power_new_arr]);
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->input('id');
+            $new = Role::find($id);
+            if ($new->delete($id)) {
+                return json_encode(['msg' => '删除成功!', 'code' => 1, 'status' => 'ok']);
+            } else {
+                return json_encode(['msg' => '删除失败!', 'code' => 0, 'status' => 'no']);
+            }
+        }
+    }
+
+    public function delete_all(Request $request)
+    {
+        if ($request->ajax()) {
+            $ids = $request->input('ids');
+            $ids = explode(',', $ids);
+            foreach ($ids as $id) {
+                $task = Role::find($id);
+                $task->delete($id);
+            }
+            return json_encode(['msg' => '删除成功!', 'code' => 1, 'status' => 'ok']);
         }
     }
 }

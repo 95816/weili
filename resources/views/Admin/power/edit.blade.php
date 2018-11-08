@@ -110,8 +110,6 @@
             success: "valid",
 
         });
-
-
     });
 
     function deleteCat(id) {

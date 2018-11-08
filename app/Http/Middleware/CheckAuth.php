@@ -50,6 +50,9 @@ class CheckAuth
         $power_data = Power::where('uris', $path)->where('status', '1')->get(['id'])->toArray();
         //第四步比对$power_new_arr 和 $has_power_arr (用户所有权限是否含有当前操作权限)
         if (!empty($power_data[0])) {
+            /*echo $power_data[0]['id'];
+            echo '<pre>';
+            print_r($power_new_arr);die;*/
             if (in_array($power_data[0]['id'], $power_new_arr)) {
                 return true;
             } else {
@@ -59,6 +62,5 @@ class CheckAuth
             //如果无明确设定,默认为有权限.
             return true;
         }
-
     }
 }

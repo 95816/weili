@@ -7,8 +7,9 @@
 
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
-                    <li>超级管理员</li>
-                    <li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">{{\Illuminate\Support\Facades\Session::get('admin.info.real_name')}} <i class="Hui-iconfont">&#xe6d5;</i></a>
+                    <li>{{\Illuminate\Support\Facades\Session::get('admin.info.role_name')}}</li>
+                    <li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">{{\Illuminate\Support\Facades\Session::get('admin.info.real_name')}} <i
+                                    class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
                             <li><a href="/admin/logout">退出</a></li>

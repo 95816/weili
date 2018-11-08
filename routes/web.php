@@ -53,6 +53,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['check_login', 'check_auth']
     Route::any('role/show', ['uses' => 'Admin\RoleController@show']);
     Route::any('role/add', ['uses' => 'Admin\RoleController@add']);
     Route::any('role/edit/id/{id}', ['uses' => 'Admin\RoleController@edit'])->where(['id' => '\d+']);
+    Route::any('role/delete', ['uses' => 'Admin\RoleController@delete']);
+    Route::any('role/delete_all', ['uses' => 'Admin\RoleController@delete_all']);
 
 
     Route::any('user/lists', ['uses' => 'Admin\UserController@lists']);
