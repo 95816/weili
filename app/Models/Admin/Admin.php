@@ -89,6 +89,9 @@ class Admin extends Model
      */
     private static function setUserInfo($user)
     {
+        //转换user信息中的角色id 为 角色名称
+        $role_name = Role::find($user['role_id']);
+        $user['role_name'] = $role_name->name;
         Session::put('admin.id', $user['id']);
         Session::put('admin.info', $user);
         $userInfo = self::find($user['id']);

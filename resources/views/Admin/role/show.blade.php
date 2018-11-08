@@ -75,12 +75,63 @@
     /*管理员-角色-删除*/
     function admin_role_del(obj, id) {
         layer.confirm('角色删除须谨慎，确认要删除吗？', function (index) {
-            //此处请求后台程序，下方是成功后的前台处理……
-
-
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
+            layer.confirm('确认要删除吗？', function (index) {
+                //此处请求后台程序，下方是成功后的前台处理……
+                $.ajax({
+                    type: 'post', //请求方式
+                    url: '/admin/role/delete', //请求url
+                    data: {'id': id},
+                    dataType: "json",
+                    //请求成功的处理
+                    success: function (data) {
+                        if (data.code) {
+                            $(obj).parents("tr").remove();
+                            layer.msg('已删除!', {icon: 1, time: 1000});
+                        } else {
+                            layer.msg('删除失败!', {icon: 2, time: 1000});
+                        }
+                    }
+                })
+            });
         });
+    }
+
+    // 批量删除
+    function datadel() {
+        var str = "";
+        $("input:checkbox:checked").each(function () {
+            if ($(this).val()) {
+                str += $(this).val() + ",";
+            }
+        });
+        str = str.substring(0, str.length - 1);
+        if (str == '') {
+            layer.msg('一个也不选,删你妹啊!', {icon: 2, time: 1000});
+            return;
+        } else {
+            $.ajax({
+                type: 'post',
+                url: '/admin/role/delete_all',
+                data: {'ids': str},
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if (data.code) {
+                        layer.msg(
+                            '删除成功！<br/>',
+                            {
+                                icon: 6,
+                                time: 1500,
+                                shade: 0.3,
+                                end: function () {
+                                    location.reload();
+                                }
+                            });
+                    }
+                }
+            });
+        }
+
     }
 </script>
 <!--/请在上方写此页面业务相关的脚本-->

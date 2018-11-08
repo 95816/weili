@@ -163,7 +163,7 @@
     function reject(order_no) {
         $.ajax({
             type: 'post',
-            url: 'http://weili.com/admin/packet/reject',
+            url: 'http://newadmin.tingwan.com/admin/packet/reject',
             data: {order_no: order_no},
             dataType: "json",
             success: function (data) {

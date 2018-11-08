@@ -73,7 +73,9 @@ class AdminController extends Controller
         }
         foreach ($admin_lists as $key => &$val) {
             $role_data = Role::find($val->role_id);
-            $val['role_id'] = $role_data->name;
+            if (!empty($role_data)){
+                $val['role_id'] = $role_data->name;
+            }
         }
         return view('Admin.admin.lists', ['list' => $admin_lists, 'keyword' => empty($keyword) ? '' : $keyword]);
     }

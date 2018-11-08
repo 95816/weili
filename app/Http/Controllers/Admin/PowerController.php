@@ -52,10 +52,11 @@ class PowerController extends Controller
     {
         $powerArr = Power::get_power_arr();
         if ($request->isMethod('post')) {
-            $data = $request->only(['id', 'name', 'pid', 'status']);
+            $data = $request->only(['id', 'name', 'uris', 'pid', 'status']);
             $result = Power::find($data['id']);
             $result->name = $data['name'];
             $result->pid = $data['pid'];
+            $result->uris = $data['uris'];
             $path_res = Power::find($data['pid']);
             if ($data['pid'] == 0) {
                 $result->path = '0,';
@@ -73,5 +74,18 @@ class PowerController extends Controller
         }
         $editData = Power::find($id);
         return view('Admin.power.edit', ['data' => $editData, 'lists' => $powerArr]);
+    }
+
+    public function delete(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->input('id');
+            $new = Power::find($id);
+            if ($new->delete($id)) {
+                return json_encode(['msg' => '删除成功!', 'code' => 1, 'status' => 'ok']);
+            } else {
+                return json_encode(['msg' => '删除失败!', 'code' => 0, 'status' => 'no']);
+            }
+        }
     }
 }
